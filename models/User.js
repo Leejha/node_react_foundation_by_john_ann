@@ -31,7 +31,7 @@ const userSchema = mongoose.Schema(
         image : String,
         token : 
         {
-            type : Stirng
+            type : String
         },
         tokenExp : 
         {
@@ -41,4 +41,4 @@ const userSchema = mongoose.Schema(
 
 const User = mongoose.model('User', userSchema);
 
-module.export = { User };
+module.exports = { User };
