@@ -83,10 +83,19 @@ userSchema.methods.generateToken = function(cb) {
     user.save(function(err, user) {
         if (err) return cb(err)
         cb(null, user)
-    })
-    
-    
+    })   
+}
 
+userSchema.statics.findByToken = function(token, cb) {
+    var user = this;
+
+    jwt.verify(token, 'secretToken', function(err, decoded) {
+        user.findOne({'_id' : decoded, 'token' : token }, function (err, user) {
+            if (err) return cb(err);
+            cb(null, user);
+           
+        })
+    })
 }
 
 // 왜 이게 pre함수 보다 위에 있으면 pre함수가 안될까
