@@ -6,6 +6,13 @@ const cookieParser = require('cookie-parser');
 const { User } = require('./models/User');
 const { auth } = require('./middleware/auth');
 const config = require('./config/key');
+const cors = require('cors');
+app.use(
+    cors({
+      origin: true,
+      credentials: true
+    })
+  );
 
 app.use(express.urlencoded({extended : true}));
 app.use(express.json());
@@ -18,6 +25,11 @@ mongoose.connect(config.mongoURI,
 .catch(err => console.log(err))
 
 app.get('/', (req, res) => res.send('hello_world'));
+
+app.get('/api/hello', (req, res) => {
+    res.send('hello')
+
+})
 
 app.post('/api/users/register', (req, res) => {
     const user = new User(req.body)

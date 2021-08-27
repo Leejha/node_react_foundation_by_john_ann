@@ -77,7 +77,6 @@ userSchema.methods.comparePassword = function ( plainPassword, cb) {
 userSchema.methods.generateToken = function(cb) {
     var user = this;
     var token = jwt.sign(user._id.toHexString(), 'secretToken');
-    console.log('test4')
 
     user.token = token;
     user.save(function(err, user) {
@@ -87,7 +86,7 @@ userSchema.methods.generateToken = function(cb) {
 }
 
 userSchema.statics.findByToken = function(token, cb) {
-    var user = this;
+    var user = this;    
 
     jwt.verify(token, 'secretToken', function(err, decoded) {
         user.findOne({'_id' : decoded, 'token' : token }, function (err, user) {
