@@ -5,10 +5,11 @@ import {
 } from './types';
 
 const apiUrl = 'https://5000-turquoise-rhinoceros-aapmw8m3.ws-us16.gitpod.io';
+axios.defaults.withCredentials = true;
 
 export function loginUser(body) {
     const reqUrl = apiUrl + '/api/users/login';
-    const request = axios.post(reqUrl, body)
+    const request = axios.post(reqUrl, body, { withCredentials: true })
         .then(response => response.data)
 
         // const getData = async() => {
