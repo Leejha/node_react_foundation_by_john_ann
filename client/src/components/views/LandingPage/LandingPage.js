@@ -1,27 +1,25 @@
 import React, {useEffect} from 'react';
 import axios from 'axios';
+import { withRouter }  from 'react-router-dom';
 
 function LandingPage(props) {
     const apiUrl = 'https://5000-turquoise-rhinoceros-aapmw8m3.ws-us16.gitpod.io';
 
     const onClickhandler = () => {
         const reqUrl = apiUrl + '/api/users/logout';
-        axios.get(reqUrl)
-            .then( response => {
-                if (response.data.success) {
-                    props.history.push('/login');
-                }
-                else {
-                    alert('로그아웃에 실패하였습니다.')
-                }
-            })
+
+        const push = async () => {
+            const response = await axios.get(reqUrl)
+            if (response.data.success) {
+                props.history.push('/login');
+            }
+            else {
+                alert('로그아웃에 실패하였습니다.')
+            }
+        }
+        push()
     }
 
-    // useEffect(() => {
-    //     axios.get('https://5000-turquoise-rhinoceros-aapmw8m3.ws-us16.gitpod.io/api/hello')
-    //     .then(response => console.log(response.data))
-    
-    // }, [])
     return (
         <div style = {{
             display : 'flex', justifyContent: 'center', alignItems : 'center',
@@ -37,4 +35,4 @@ function LandingPage(props) {
     )
 }
 
-export default LandingPage
+export default withRouter(LandingPage) 

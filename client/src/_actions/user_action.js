@@ -1,7 +1,8 @@
 import axios from 'axios';
 import {
     LOGIN_USER,
-    REGISTER_USER
+    REGISTER_USER,
+    AUTH_USER
 } from './types';
 
 const apiUrl = 'https://5000-turquoise-rhinoceros-aapmw8m3.ws-us16.gitpod.io';
@@ -9,7 +10,7 @@ axios.defaults.withCredentials = true;
 
 export function loginUser(body) {
     const reqUrl = apiUrl + '/api/users/login';
-    const request = axios.post(reqUrl, body, { withCredentials: true })
+    const request = axios.post(reqUrl, body)
         .then(response => response.data)
 
         // const getData = async() => {
@@ -34,3 +35,13 @@ export const registerUser = (dataToSubmit) => {
         payload : request
     }
 } 
+
+export const authUser = () => {
+    const reqUrl = apiUrl + '/api/users/auth';
+    const request = axios.get(reqUrl)
+        .then( response => response.data)
+    return { 
+        type : AUTH_USER,
+        payload : request
+    }
+}
